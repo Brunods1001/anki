@@ -5,10 +5,11 @@ description = ""
 authors = ["Brunods10 <brunods1001@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+black = {version = "^22.3.0", allow-prereleases = true}
+pytest = "^7.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

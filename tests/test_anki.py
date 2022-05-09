@@ -106,8 +106,10 @@ def test_create_user_autoincrements_id(ankidb):
     user2 = ankidb.create_user(name="John2")
     assert user1.id == user2.id - 1
 
-def test_create_deck(ankidb):
-    deck = ankidb.create_deck(name="My Study Deck")
+
+def test_create_deck_and_assign_to_user(ankidb):
+    user = ankidb.create_user(name="John")
+    deck = ankidb.create_deck(name="My Study Deck", user_id=user.id)
     assert isinstance(deck, Deck)
     con = ankidb.connect()
     con.row_factory = sqlite3.Row
@@ -115,7 +117,8 @@ def test_create_deck(ankidb):
     assert res['name'] == 'My Study Deck'
 
 def test_create_card(ankidb):
-    deck = ankidb.create_deck(name="My Study Deck")
+    user = ankidb.create_user(name="John")
+    deck = ankidb.create_deck(name="My Study Deck", user_id=user.id)
     card = ankidb.create_card(front="Hello", back="World", deck_id=deck.id)
     assert isinstance(card, Card)
     con = ankidb.connect()
@@ -125,6 +128,9 @@ def test_create_card(ankidb):
     assert res['back'] == 'World'
     assert res['review_score'] == 0
     
+def test_initiate_app():
+    """Initiates the app and prompts the user"""
+    ...
 
 def test_session(user, session, deck):
     # begin session

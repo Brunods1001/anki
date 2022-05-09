@@ -456,9 +456,3 @@ class App:
                     case _:
                         print("Invalid choice.")
 
-
-if __name__ == "__main__":
-    app = App(db=AnkiDB(dbname=input("Enter the name of the database: ")))
-    app.run()
-    print("Exiting...")
-    sys.exit(0)

@@ -1,7 +1,7 @@
 import sqlite3
-from anki import __version__, Card,  Deck, Grade, User, Session, AnkiDB
+from anki import __version__, Card,  Deck, Grade, User, AnkiDB
 from pytest import fixture
-EXPECTED_TABLES = {"users", "decks", "cards", "sessions"}
+EXPECTED_TABLES = {"users", "decks", "cards"}
 
 @fixture
 def front():
@@ -39,10 +39,6 @@ def ankidb() -> AnkiDB:
     ankidb.setup_new_db()
     yield ankidb
 
-@fixture
-def session(ankidb):
-    return Session(user=user, db=ankidb)
-
 def test_version():
     assert __version__ == '0.1.0'
 
@@ -73,10 +69,6 @@ def test_create_user(user):
     assert User(name="Jane").id == 1
     assert User(name="John").id == 2
 
-def test_no_interference_between_session_and_user_ids(user, session):
-    u2 = User(name="Jane").id == 1
-    assert Session(user=u2, db=session.db).id == 1
-    assert Session(user=u2, db=session.db).id == 2
 
 
 
@@ -130,13 +122,4 @@ def test_create_card(ankidb):
     
 def test_initiate_app():
     """Initiates the app and prompts the user"""
-    ...
-
-def test_session(user, session, deck):
-    # begin session
-    # get the pks of all decks
-    # let user choose a deck
-    # iterate over all cards in deck in order of increasing review_score
-    # for each card, ask the user to read the front, back, and review it
-    # once the session ends, print stats
     ...
